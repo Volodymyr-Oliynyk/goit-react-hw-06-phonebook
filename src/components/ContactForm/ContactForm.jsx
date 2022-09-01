@@ -8,6 +8,9 @@ import {
   ContactLabel,
   ContactField,
 } from './ContactFormStyled';
+import { useSelector, useDispatch } from 'react-redux';
+import { getContactValue, addContact } from '../../redux/contacts';
+import { nanoid } from 'nanoid';
 
 const schema = yup.object().shape({
   name: yup
@@ -26,12 +29,20 @@ const schema = yup.object().shape({
     ),
 });
 
-export default function ContactForm({ onSubmit }) {
+export default function ContactForm() {
+  const contacts = useSelector(getContactValue);
+  const dispatch = useDispatch();
 
+  const handleSubmit = ({ name, number }, { resetForm }) => {
+    const newContact = {
+      id: nanoid(),
+      name,
+      number,
+    };
+    contacts.find(contact => contact.name === newContact.name)
+      ? alert(`${name} is already in contacts`)
+      : dispatch(addContact(newContact));
 
-  const handleSubmit = (values, { resetForm }) => {
-    const { name, number } = values;
-    onSubmit(name, number);
     resetForm();
   };
 
