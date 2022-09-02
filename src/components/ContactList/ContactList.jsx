@@ -14,9 +14,6 @@ const ContactList = () => {
   const filter = useSelector(getFilterValue);
   const dispatch = useDispatch();
 
-  const onDeleteContact = id => {
-    dispatch(deleteContact(id));
-  };
 
   const visibleContacts = () => {
     const normalizedContacts = filter.toLowerCase();
@@ -27,12 +24,16 @@ const ContactList = () => {
 
   const filteredContacts = visibleContacts();
 
+  const deleteContactItem = contactId => {
+    dispatch(deleteContact(contactId));
+  };
+
   return (
     <List>
       {filteredContacts.map(({ id, name, number }) => (
         <ContactItem key={id}>
           <span>{name}</span> : <span>{number}</span>
-          <Button type="button" onClick={() => onDeleteContact(id)}>
+          <Button type="button" onClick={() => deleteContactItem(id)}>
             Delete
           </Button>
         </ContactItem>
