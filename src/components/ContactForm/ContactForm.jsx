@@ -11,6 +11,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { getContactValue, addContact } from '../../redux/contacts';
 import { nanoid } from 'nanoid';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const schema = yup.object().shape({
   name: yup
@@ -40,7 +41,7 @@ export default function ContactForm() {
       number,
     };
     contacts.find(contact => contact.name === newContact.name)
-      ? alert(`${name} is already in contacts`)
+      ? Notify.info(`${name} is already in contacts`)
       : dispatch(addContact(newContact));
 
     resetForm();

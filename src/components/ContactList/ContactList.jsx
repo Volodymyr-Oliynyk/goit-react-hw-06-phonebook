@@ -1,11 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  deleteContact,
-  getContactValue,
-  getFilterValue,
-} from '../../redux/contacts';
-// import propTypes from 'prop-types';
+import { deleteContact, getContactValue, getFilterValue } from 'redux/contacts';
 import { Button } from 'components/common/ButtonStyled';
 import { ContactItem, List } from './ContactListstyled';
 
@@ -13,7 +8,6 @@ const ContactList = () => {
   const contacts = useSelector(getContactValue);
   const filter = useSelector(getFilterValue);
   const dispatch = useDispatch();
-
 
   const visibleContacts = () => {
     const normalizedContacts = filter.toLowerCase();
@@ -43,14 +37,3 @@ const ContactList = () => {
 };
 
 export default ContactList;
-
-// ContactList.propTypes = {
-//   contacts: propTypes.arrayOf(
-//     propTypes.shape({
-//       id: propTypes.string.isRequired,
-//       name: propTypes.string.isRequired,
-//       number: propTypes.string.isRequired,
-//     })
-//   ).isRequired,
-//   onDeleteContact: propTypes.func.isRequired,
-// };
